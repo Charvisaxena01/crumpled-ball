@@ -4,6 +4,7 @@ const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
 const Render = Matter.Render;
+const Constraint = Matter.Constraint;
 var dustbinObj, paperObject,groundObject;	
 var world;
 
@@ -19,6 +20,7 @@ function setup() {
 	paperObject=new paper(200,450,70);
 	groundObject=new Ground(width/2,670,width,20);
 	dustbinObj=new dustbin(1200,650);
+	lancher = new Lancher(paperObject.body,{x:200, y:250});
 	//Create a Ground
 	
 
@@ -33,7 +35,7 @@ function setup() {
 	});
 
 	Engine.run(engine);
-	Render.run(render);
+	//Render.run(render);
   
 }
 
@@ -46,6 +48,7 @@ function draw() {
   paperObject.display();
   groundObject.display();
   dustbinObj.display();
+  lancher.display();
  
 }
 
@@ -56,4 +59,14 @@ function keyPressed() {
 
     
   	}
+}
+
+function mouseDragged(){
+	//strokeWeight(4)
+	//stroke("blue")
+	//line(pointA.x,point.y,pointB.x,pointB.y)
+	Matter.Body.setPosition(paperObject.body,{x:mouseX,y:mouseY})
+}
+function mouseReleased(){
+	lancher.fly()
 }
